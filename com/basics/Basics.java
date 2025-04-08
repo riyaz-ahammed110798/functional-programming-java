@@ -7,6 +7,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Basics {
+
+    /**
+     * intermediate and terminal operations in functional programming
+     *
+     * operations perfomed on a stream and it returns a stream back is known as intermediate operations
+     * terminal operation which accepts a stream and returns a non stream value like it will be last line of the functional programming
+     */
     public static void main(String[] args) {
         List<Integer> data = Arrays.asList(1,3,4,5,11,21,13,12,10,5,11,3,1,1,3);
         List<Integer> data1 = Arrays.asList(34,32,41,55,11,221,123,12,10,51,11,31,11,11,34);

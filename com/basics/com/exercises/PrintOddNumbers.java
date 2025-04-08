@@ -1,12 +1,15 @@
 package com.basics.com.exercises;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class PrintOddNumbers {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1,3,4,5,11,21,13,12,10);
-        printSumOdd(numbers);
+        System.out.print(collectAsListEven(numbers));
     }
 
     static void printOddNumber(List<Integer> numbers){
@@ -38,5 +41,18 @@ public class PrintOddNumbers {
         System.out.print("Sum of odd numbers = " + numbers.stream()
                 .filter(number -> number % 2 != 0)
                 .reduce(0, Integer::sum));
+    }
+
+    static List<Double> collectAsList(List<Integer> numbers){
+        return numbers.stream()
+                .map(number -> Math.pow(number, 2))
+                .collect(Collectors.toList());
+    }
+
+
+    static List<Integer> collectAsListEven(List<Integer> numbers){
+        return numbers.stream()
+                .filter(number -> number % 2 == 0)
+                .collect(Collectors.toList());
     }
 }
