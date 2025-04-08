@@ -1,12 +1,13 @@
 package com.basics.com.exercises;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class PrintAllCourses {
     public static void main(String[] args) {
         List<String> courses = Arrays.asList("Spring", "Spring Boot", "API", "Microservices using spring", "AWS", "PCP", "Azure", "Docker","Spring JPA Repository");
-        printCharLength(courses);
+        printReverseOrder(courses);
     }
 
     static void printCources(List<String> courses){
@@ -30,5 +31,9 @@ public class PrintAllCourses {
         courses.stream()
                 .map(course -> course + " " + course.length())
                 .forEach(System.out::println);
+    }
+
+    static void printReverseOrder(List<String> courses){
+        courses.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
     }
 }

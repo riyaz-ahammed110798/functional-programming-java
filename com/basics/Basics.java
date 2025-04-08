@@ -2,12 +2,15 @@ package com.basics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Basics {
     public static void main(String[] args) {
-        List<Integer> data = Arrays.asList(1,3,4,5,11,21,13,12,10);
-        printSquareOddNumbers(data);
+        List<Integer> data = Arrays.asList(1,3,4,5,11,21,13,12,10,5,11,3,1,1,3);
+        List<Integer> data1 = Arrays.asList(34,32,41,55,11,221,123,12,10,51,11,31,11,11,34);
+        distinctSortTwoArray(data, data1);
 
     }
 
@@ -31,5 +34,28 @@ public class Basics {
                 .forEach(System.out::println);
     }
 
+    static void printSum(List<Integer> numbers){
+        System.out.print( " Sum of Number : " + numbers.stream()
+                //.reduce(0, (x,y) -> x + y)
+                .reduce(0, Integer::sum));
+    }
 
+    static void maxOfNum(List<Integer> numbers){
+        System.out.print( " Max of Number : " + numbers.stream()
+                .reduce(0, (a, b) -> a > b ? a : b));
+    }
+
+    static void distinctOfList(List<Integer> numbers){
+        System.out.print("Distinct values : " );
+        numbers.stream()
+                .distinct()
+                .sorted()
+                .forEach(System.out::println);
+    }
+    static void distinctSortTwoArray(List<Integer> number1, List<Integer> number2){
+        Stream.concat(number1.stream(), number2.stream()).collect(Collectors.toList()).stream()
+                .distinct()
+                .sorted()
+                .forEach(System.out::println);
+    }
 }
