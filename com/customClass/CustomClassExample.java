@@ -1,8 +1,11 @@
 package com.customClass;
 
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 class Course{
 
@@ -61,9 +64,9 @@ class Course{
     }
 }
 public class CustomClassExample {
-
+    //if the type is primitive use the  primitive type map
     public static void main(String[] args) {
-
+        List<Course> courseListNull = new ArrayList<>();
         List<Course> courseList = List.of(
                 new Course("Spring", "Framework", 98, 1001),
                 new Course("Spring Boot", "Framework", 91, 101),
@@ -87,6 +90,93 @@ public class CustomClassExample {
         System.out.println(
                 courseList.stream().anyMatch(score90PRedicateAny)
         );
+
+        Comparator<Course> byIncreasingScore = Comparator.comparing(Course::getScore);
+        Comparator<Course> byDecreasingScore = Comparator.comparing(Course::getScore).reversed();
+        Comparator<Course> byScoreEnrolled = Comparator.comparing(Course::getScore).thenComparing(Course::getEnrolled);
+        System.out.println(
+                courseList.stream().sorted(byIncreasingScore).collect(Collectors.toList())
+        );
+        System.out.println(
+                courseList.stream().sorted(byDecreasingScore).collect(Collectors.toList())
+        );
+        System.out.println(
+                courseList.stream().sorted(byScoreEnrolled).collect(Collectors.toList())
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .sorted(byScoreEnrolled)
+                        .limit(3) //limit to the first 3
+                        .collect(Collectors.toList())
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .sorted(byScoreEnrolled)
+                        .skip(2) //skip the first 2 from the list
+                        .collect(Collectors.toList())
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .takeWhile(course -> course.getScore() >= 90) //if any of the stream breaks this criteria it wont take any value after that
+                        .collect(Collectors.toList())
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .dropWhile(course -> course.getScore() == 91) //if any of the stream has a same criteria it will be dropped
+                        .collect(Collectors.toList())
+        );
+
+
+        System.out.println(
+                courseList.stream()
+                        .max(Comparator.comparing(Course::getEnrolled)) //gets the course with top enrolled
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .min(Comparator.comparing(Course::getEnrolled)) //gets the course with least enrolled
+        );
+
+        System.out.println(
+                courseListNull.stream()
+                        .findFirst() //gets the first course in the list
+                        .orElse(new Course("No Name", "No Category", 0, 0)) // if the list is null it will return the default course details
+        );
+
+        Predicate<Course> coursePredicate = course -> course.getScore() > 95;
+        System.out.println(
+                courseList.stream()
+                        .filter(coursePredicate)
+                        .findAny()//gets the course with least enrolled
+        );
+
+
+        System.out.println(
+                courseList.stream()
+                        .filter(coursePredicate)
+                        .mapToInt(Course::getEnrolled)
+                        .sum()
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .filter(coursePredicate)
+                        .mapToInt(Course::getScore)
+                        .average()
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .filter(course -> course.getCategory() == "Microservices")
+                        .count()
+        );
+
+
+
 
     }
 }
