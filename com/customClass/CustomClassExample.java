@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 class Course{
@@ -173,6 +174,27 @@ public class CustomClassExample {
                 courseList.stream()
                         .filter(course -> course.getCategory() == "Microservices")
                         .count()
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .collect(Collectors.groupingBy(Course::getCategory))
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .collect(Collectors.groupingBy(Course::getCategory, Collectors.counting()))
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .collect(Collectors.groupingBy(Course::getCategory, Collectors.maxBy(Comparator.comparing(Course::getScore))))
+        );
+
+        System.out.println(
+                courseList.stream()
+                        .collect(Collectors.groupingBy(Course::getCategory,
+                                Collectors.mapping(Course::getName, Collectors.toList())))
         );
 
 
