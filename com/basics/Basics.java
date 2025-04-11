@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Basics {
@@ -17,8 +18,23 @@ public class Basics {
     public static void main(String[] args) {
         List<Integer> data = Arrays.asList(1,3,4,5,11,21,13,12,10,5,11,3,1,1,3);
         List<Integer> data1 = Arrays.asList(34,32,41,55,11,221,123,12,10,51,11,31,11,11,34);
-        distinctSortTwoArray(data, data1);
 
+        int[] arr = {1, 3, 4, 5, 11, 21, 13, 12, 1};
+        System.out.println(
+                Arrays.toString(Stream.of(1, 3, 4, 5, 11, 21, 13, 12, 10).map(num -> num - 1)
+                        .toArray())
+        );
+        System.out.println(
+                Arrays.stream(arr)
+                    .allMatch(n -> n % 2 == 0)
+        );
+
+        System.out.println(
+                IntStream.iterate(1, num -> num + 2)
+                        .limit(10)
+                        .peek(System.out::println)
+                        .sum()
+        );
     }
 
     static void printNumbers(List<Integer> numbers){
